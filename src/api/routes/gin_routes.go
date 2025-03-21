@@ -10,7 +10,10 @@ func Routes(r *gin.Engine) {
 	{
 		userRoute := api.Group("/users")
 		{
-			userRoute.POST("/", user_controller.PostUser)
+			userRoute.POST("/", user_controller.Store)
+			userRoute.GET("/", user_controller.Index)
+			userRoute.GET("/:id", user_controller.Show)
+			userRoute.PATCH("/:id", user_controller.Update)
 		}
 	}
 }

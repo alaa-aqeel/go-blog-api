@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/alaa-aqeel/govalid/src/api/routes"
-	"github.com/alaa-aqeel/govalid/src/repository"
+	"github.com/alaa-aqeel/govalid/src/database"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -16,7 +16,10 @@ func main() {
 	}
 
 	// Initialize Pkg
-	repository.InitializeDatabase()
+	database.InitializeDatabase()
+
+	// Migrate Database
+	database.MigrateDatabase(database.DB)
 
 	// Initialize Gin
 	r := gin.Default()
