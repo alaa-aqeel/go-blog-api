@@ -13,7 +13,7 @@ func Routes(r *gin.Engine) {
 			userRoute.POST("/", user_controller.Store)
 			userRoute.GET("/", user_controller.Index)
 			userRoute.GET("/:id", user_controller.Show)
-			userRoute.PATCH("/:id", user_controller.Update)
+			userRoute.Match([]string{"PATCH", "PUT"}, "/:id", user_controller.Update)
 		}
 	}
 }

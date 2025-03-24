@@ -11,20 +11,7 @@ type UserService struct {
 	db *gorm.DB
 }
 
-func (s *UserService) Create(data map[string]any) error {
-	password, err := helpers.Hash().Make(data["password"].(string))
-	if err != nil {
-		return err
-	}
-
-	data["password"] = password
-	data["id"] = uuid.New()
-	tx := s.db.Model(&models.User{}).Create(&data)
-
-	return tx.Error
-}
-
-func (s *UserService) Update(id string, data map[string]any) error {
+func (s *UserService) hashPassword(data map[string]any) error {
 	if _, ok := data["password"]; ok {
 		password, err := helpers.Hash().Make(data["password"].(string))
 		if err != nil {
@@ -32,6 +19,21 @@ func (s *UserService) Update(id string, data map[string]any) error {
 		}
 		data["password"] = password
 	}
+
+	return nil
+}
+
+func (s *UserService) Create(data map[string]any) error {
+
+	s.hashPassword(data)
+	data["id"] = uuid.New()
+	tx := s.db.Model(&models.User{}).Create(&data)
+
+	return tx.Error
+}
+
+func (s *UserService) Update(id string, data map[string]any) error {
+	s.hashPassword(data)
 	tx := s.db.Model(&models.User{}).Where("id = ?", id).Updates(&data)
 
 	return tx.Error

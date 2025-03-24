@@ -1,6 +1,6 @@
 package service
 
-import "github.com/alaa-aqeel/govalid/src/database"
+import "github.com/alaa-aqeel/govalid/src/pkgs/database"
 
 func User() *UserService {
 	return &UserService{

@@ -2,13 +2,13 @@ package helpers
 
 import "strings"
 
-type Map map[string][]string
+type Map map[string]any
 
-func (e Map) Add(key string, err string) {
-	e[strings.ToLower(key)] = append(e[key], err)
+func (e Map) Add(key string, value string) {
+	e[strings.ToLower(key)] = value
 }
 
-func (e Map) Get(key string) []string {
+func (e Map) Get(key string) any {
 	return e[key]
 }
 
@@ -25,10 +25,10 @@ func (e Map) Keys() []string {
 	return keys
 }
 
-func (e Map) Values() []string {
-	values := make([]string, 0, len(e))
+func (e Map) Values() []any {
+	values := make([]any, 0, len(e))
 	for _, v := range e {
-		values = append(values, v...)
+		values = append(values, v)
 	}
 	return values
 }
