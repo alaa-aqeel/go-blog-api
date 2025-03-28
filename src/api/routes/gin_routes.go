@@ -9,6 +9,7 @@ import (
 )
 
 func Routes(r *gin.Engine) {
+
 	api := r.Group("/api/v1")
 	{
 		userRoute := api.Group("/users")
@@ -18,9 +19,9 @@ func Routes(r *gin.Engine) {
 			userController := user_controller.NewUserController(userService)
 
 			userRoute.POST("/", userController.Store)
-			userRoute.GET("/", user_controller.Index)
-			userRoute.GET("/:id", user_controller.Show)
-			userRoute.Match([]string{"PATCH", "PUT"}, "/:id", user_controller.Update)
+			userRoute.GET("/", userController.Index)
+			userRoute.GET("/:id", userController.Show)
+			userRoute.Match([]string{"PATCH", "PUT"}, "/:id", userController.Update)
 		}
 	}
 }

@@ -16,9 +16,3 @@ type User struct {
 	UpdatedAt time.Time      `gorm:"autoUpdateTime"`
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
-
-func (u *User) BeforeCreate(tx *gorm.DB) error {
-	u.ID = uuid.New()
-
-	return nil
-}
