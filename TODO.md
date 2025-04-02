@@ -1,5 +1,5 @@
 
-## Users Endpoint
+## [/] Users Endpoint
 - [X] `GET /users` – List all users x.
 - [X] `GET /users/:id` – Get user by ID.
 - [X] `POST /users` – Register new user .
@@ -7,7 +7,7 @@
 - [ ] `DELETE /users/:id` – Delete user .
 - [ ] implement test cases 
 
-## Error Handling
+## [X] Error Handling
 - [X] Standardized JSON errors 
     ```json 
     { 
@@ -18,10 +18,12 @@
         } 
     }
     ```
+- [X] Validation for user input.
+- [X] Database errors. 
 
 ## Pagination
-- [ ] GET /posts?page=1&limit=10 – Paginated responses.
-- [ ] Metadata: totalPages, currentPage, nextPage.
+- [ ] `GET /posts?page=1&limit=10` – Paginated responses.
+- [ ] Metadata: `totalPages`, `currentPage`, `nextPage`.
 
 ## Authentication
 - [ ] implement jwt token generation
@@ -30,7 +32,6 @@
 - [ ] `POST /auth/refresh` – Refresh expired tokens.
 - [ ] `POST /auth/logout` – Revoke current token.
 - [ ] `POST /auth/register` – User registration.
-- [ ] Filter by `tags`, `categories`.
 
 ## Profile 
 - [ ] `GET /profile` – List all users x.
@@ -51,9 +52,8 @@
 - [ ] `GET /posts/:id` – Get post .
 - [ ] `PATCH /posts/:id` – Update post (auth required).
 - [ ] `DELETE /posts/:id` – Delete post (auth required).
+- [ ] Filter by `tags`, `categories`.
 - [ ] implement test cases
-
-
 
 ## Categories Endpoint
 - [ ] `GET /categories` – List Categories .
@@ -80,6 +80,11 @@
 - [ ] implement test cases
 
 
+## Other 
+- [ ] Rate Limiting: tollbooth or custom middleware.
+- [X] Dockerize app (Dockerfile + docker-compose.yml).
+- [ ] CI/CD (GitHub Actions).
+- [ ] Caching with Redis.
 
 # 📌 Notes
 - Prioritize Core Features first.
