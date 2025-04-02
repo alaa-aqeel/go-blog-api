@@ -1,24 +1,46 @@
 package validator
 
-import "github.com/go-playground/validator/v10"
+import (
+	"reflect"
+	"strings"
+
+	"github.com/go-playground/locales/en"
+	ut "github.com/go-playground/universal-translator"
+	"github.com/go-playground/validator/v10"
+	en_translations "github.com/go-playground/validator/v10/translations/en"
+)
 
 type Validator struct {
 	validate *validator.Validate
+	uni      *ut.UniversalTranslator
+	Trans    ut.Translator
 }
 
 var Validate *Validator
 
 func InitlizeValidator() *Validator {
-	v := validator.New()
+	Validate = &Validator{}
+	Validate.newValidator()
+	Validate.newTranslator()
 
-	Validate = &Validator{validate: v}
 	return Validate
 }
 
-func (v *Validator) ValidateStruct(objStruct any) Errors {
-	if err := v.validate.Struct(objStruct); err != nil {
-		return v.ParseValidationErrors(err)
-	}
+func (v *Validator) newValidator() {
+	v.validate = validator.New(func(v *validator.Validate) {
+		v.SetTagName("binding")
+	})
+	v.validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
 
-	return make(Errors)
+		return strings.Split(fld.Tag.Get("json"), ",")[0]
+	})
+}
+
+func (v *Validator) newTranslator() {
+	en := en.New()
+	v.uni = ut.New(en, en)
+	trans, _ := v.uni.GetTranslator("en")
+	v.Trans = trans
+
+	en_translations.RegisterDefaultTranslations(v.validate, trans)
 }

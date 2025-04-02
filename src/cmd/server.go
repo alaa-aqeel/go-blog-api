@@ -16,7 +16,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	// Initialize Pkg
+	// Initialize pkgs
 	database.InitializeDatabase()
 	validator.InitlizeValidator()
 
@@ -25,6 +25,7 @@ func main() {
 
 	// Initialize Gin
 	r := gin.Default()
+
 	routes.Routes(r)
 	r.Run(":8080")
 }

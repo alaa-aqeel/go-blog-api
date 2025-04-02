@@ -2,7 +2,6 @@ package routes
 
 import (
 	"github.com/alaa-aqeel/govalid/src/api/controllers/user_controller"
-	"github.com/alaa-aqeel/govalid/src/domain/repository"
 	"github.com/alaa-aqeel/govalid/src/domain/services"
 	"github.com/alaa-aqeel/govalid/src/pkgs/database"
 	"github.com/gin-gonic/gin"
@@ -14,8 +13,7 @@ func Routes(r *gin.Engine) {
 	{
 		userRoute := api.Group("/users")
 		{
-			userRepository := repository.NewUserRepository(database.DB)
-			userService := services.NewUserService(userRepository)
+			userService := services.NewUserService(database.DB)
 			userController := user_controller.NewUserController(userService)
 
 			userRoute.POST("/", userController.Store)

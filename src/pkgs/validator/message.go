@@ -1,9 +1,12 @@
 package validator
 
-import "github.com/go-playground/validator/v10"
+import (
+	"github.com/go-playground/validator/v10"
+)
 
 func (v *Validator) ParseValidationErrors(err error) Errors {
 	errorsMap := make(Errors)
+
 	for _, vErr := range err.(validator.ValidationErrors) {
 
 		errorsMap.Add(vErr.Field(), v.errorMessage(vErr))
@@ -13,5 +16,5 @@ func (v *Validator) ParseValidationErrors(err error) Errors {
 
 func (v *Validator) errorMessage(err validator.FieldError) string {
 
-	return err.Tag()
+	return err.Translate(v.Trans)
 }

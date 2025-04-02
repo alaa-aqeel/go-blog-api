@@ -1,35 +1,26 @@
 package user_controller
 
 import (
+	"github.com/alaa-aqeel/govalid/src/domain/dtos"
+	"github.com/alaa-aqeel/govalid/src/helpers"
+	"github.com/alaa-aqeel/govalid/src/pkgs/validator"
 	"github.com/gin-gonic/gin"
 )
 
-type CreateUserRequest struct {
-	Name     string `json:"name"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
 func (u *UserController) Store(ctx *gin.Context) {
-	var request CreateUserRequest
-	if err := ctx.ShouldBindJSON(&request); err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-	if err := u.service.Create(map[string]any{
-		"name":     request.Name,
-		"username": request.Username,
-		"password": request.Password,
-	}); err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
+
+	request, errs := validator.MakeValidate[dtos.CreateUserDto](ctx.Request.Body)
+	if errs.HasErrors() {
+		ctx.JSON(400, helpers.ErrorResponse("Error creating user", errs))
 		return
 	}
 
-	ctx.JSON(200, gin.H{
-		"message": "User created successfully",
-		"data": map[string]any{
-			"name":     request.Name,
-			"username": request.Username,
-		},
-	})
+	user, err := u.service.Create(request)
+	if err != nil {
+
+		ctx.JSON(400, helpers.DatabaseErrorResponse(err))
+		return
+	}
+
+	ctx.JSON(200, helpers.SuccessResponse("success creating user", user.ToDTO()))
 }
