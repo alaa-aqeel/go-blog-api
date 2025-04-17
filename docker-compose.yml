@@ -13,12 +13,12 @@ services:
     depends_on:
       - postgres
     networks:
-      - pgdb-net
+      - database-net
 
   postgres:
     image: postgres
     networks:
-      - pgdb-net
+      - database-net
     user: root
     environment:
       POSTGRES_USER: db_username
@@ -30,4 +30,4 @@ services:
       - ./Docker/pg_sql:/docker-entrypoint-initdb.d/
 
 networks:
-  pgdb-net:
+  database-net:

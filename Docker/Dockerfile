@@ -2,11 +2,11 @@ FROM alpine:latest
 
 WORKDIR /app
 
-RUN apk add --no-cache go 
+RUN apk add --no-cache go
 
-ENV GOPATH /go
+ENV GOPATH=/go
 
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 RUN go install github.com/cosmtrek/air@v1.49.0
 
 COPY go.mod go.sum ./

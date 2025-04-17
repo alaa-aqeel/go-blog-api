@@ -25,7 +25,9 @@ func main() {
 
 	// Initialize Gin
 	r := gin.Default()
-
 	routes.Routes(r)
+	r.SetTrustedProxies(nil)
+
+	// Start server
 	r.Run(":8080")
 }

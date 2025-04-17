@@ -9,3 +9,9 @@
 - __Tags__ – Optional tagging system.
 - __Comments__ – User comments on posts.
 
+
+# Usage 
+```sh
+# Run Development Server
+$ sh cmd.sh up
+```
