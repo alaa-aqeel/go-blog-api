@@ -13,7 +13,7 @@ import (
 func main() {
 	// Load .env file
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatalf("Error loading .env file: %v. Please check if the .env file exists and is properly configured.", err)
 	}
 
 	// Initialize pkgs

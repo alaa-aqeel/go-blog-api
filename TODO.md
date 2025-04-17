@@ -1,5 +1,5 @@
 
-## [/] Users Endpoint
+## Users Endpoint
 - [X] `GET /users` – List all users x.
 - [X] `GET /users/:id` – Get user by ID.
 - [X] `POST /users` – Register new user .
@@ -7,13 +7,13 @@
 - [ ] `DELETE /users/:id` – Delete user .
 - [ ] implement test cases 
 
-## [X] Error Handling
+## Error Handling
 - [X] Standardized JSON errors 
     ```json 
     { 
         "message": "error message", 
         "status":"error", 
-        "errors": { // [optional] with validation errors
+        "errors": { // [optional] with [validation errors]
             "key": ["error message"]
         } 
     }
@@ -89,3 +89,5 @@
 # 📌 Notes
 - Prioritize Core Features first.
 - Use [X] for done, [ ] for pending, [/] for partial.
+
+
