@@ -6,7 +6,6 @@ import (
 
 func (v *Validator) ParseValidationErrors(err error) Errors {
 	errorsMap := make(Errors)
-
 	for _, vErr := range err.(validator.ValidationErrors) {
 
 		errorsMap.Add(vErr.Field(), v.errorMessage(vErr))

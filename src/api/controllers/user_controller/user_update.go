@@ -22,7 +22,7 @@ func (u *UserController) Update(ctx *gin.Context) {
 
 	user, err := u.service.Update(id, request)
 	if err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
+		ctx.JSON(400, gin.H{"error": helpers.DatabaseErrorResponse(err)})
 		return
 	}
 	ctx.JSON(200, user.ToDTO())
